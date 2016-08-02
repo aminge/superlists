@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
+import time
 
 class NewVisitorTest(unittest.TestCase):
 
@@ -12,8 +13,11 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
         
     def check_for_row_in_list_table(self, row_text):
+        time.sleep(1)
         table = self.browser.find_element_by_id('id_list_table')
+        time.sleep(1)
         rows = table.find_elements_by_tag_name('tr')
+        time.sleep(1)
         self.assertIn(row_text, [row.text for row in rows])
 
     def test_can_start_a_list_and_retrieve_it_later(self):
@@ -32,11 +36,17 @@ class NewVisitorTest(unittest.TestCase):
         
         # She types "Buy peacock feathers" into a text box (Edith's hobby is tying
         # fly-fishing lures)
-        inputbox.send_keys('Buy peacock feathers')
+        #inputbox.send_keys('Buy peacock feathers')
+        
+        #time.sleep(1)
 
         # When she hits enter, the page updates, and now the page lists "1: Buy peacock
         # feathers" as an item in a to-do lists
-        inputbox.send_keys(Keys.ENTER)
+        #inputbox.send_keys(Keys.ENTER)
+        inputbox.send_keys('Buy peacock feathers\n')
+        
+        time.sleep(1)
+        
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         
         #table = self.browser.find_element_by_id('id_list_table')
